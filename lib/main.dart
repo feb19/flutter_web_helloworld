@@ -1,6 +1,139 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'dart:js' as js;
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+
+//void main() {
+//  runApp(
+//    Center(
+//      child: Directionality(textDirection: TextDirection.ltr, child:
+//          RaisedButton(
+//            onPressed: _launchURL,
+//          child: Text('Open http://feb19.jp', textDirection: TextDirection.ltr),
+//        ),
+//      ),
+//    ),
+//  );
+//}
+//
+//_launchURL() {
+//  js.context.callMethod("open", ["http://feb19.jp/"]);
+//}
+
+void main() => runApp(HelloworldApp());
+const kHtml = """<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+<p>A paragraph with <strong>strong</strong> <em>emphasized</em> text.</p>
+
+<p>And of course, cat image:</p>
+<figure>
+  <img src="https://media.giphy.com/media/6VoDJzfRjJNbG/giphy-downsized.gif" width="250" height="171" />
+  <figcaption>Source: <a href="https://gph.is/QFgPA0">https://gph.is/QFgPA0</a></figcaption>
+</figure>
+""";
+
+class HelloworldApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // 1 秒ごとに実行
+//    Timer.periodic(new Duration(seconds: 1), (timer) {
+//      debugPrint(timer.tick.toString());
+//    });
+    Text text = Text('hello world', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0)), textDirection: TextDirection.ltr);
+    Image image = Image.asset('images/maru.jpg');
+
+
+//    Positioned potisioned1 = Positioned(
+//      top: 150.0,
+//      child: Text("Text#1", textDirection: TextDirection.ltr,),
+//    );
+//    Positioned positioned2 = Positioned(
+//      top: 100.0,
+//      child: Stack(
+//        children: [
+//          Positioned(
+//            child: Text("Text#2", textDirection: TextDirection.ltr),
+//          )
+//        ],
+//      ),
+//    );
+
+
+//    FlatButton button = FlatButton(
+//      child: Text("Button", textDirection: TextDirection.ltr,),
+//      onPressed: () {
+//        js.context.callMethod("open", ["https://stackoverflow.com/"]);
+//      },
+//    );
+
+//    Stack stack = Stack(
+//      children: <Widget>[
+//        text,
+//      ],
+//    );
+
+//    Column column = Column(
+//      children: <Widget>[
+//        button
+//      ],
+//    )
+
+
+    Stack column = Stack(
+      children: <Widget>[
+//        stack,
+        Align(
+            alignment: Alignment.topLeft,
+            child: text
+        ),
+        Align(
+            alignment: Alignment.topRight,
+            child: text
+        ),
+        Container(
+          width: 100,
+          height: 100,
+          color: Colors.red,
+        ),
+        Container(
+          width: 90,
+          height: 90,
+          color: Colors.green,
+        ),
+        Container(
+          width: 80,
+          height: 80,
+          color: Colors.blue,
+        ),
+
+      ],
+    );
+    Container container = Container(width: 320, height: 320, child:  Directionality(textDirection: TextDirection.ltr, child: column),);
+//
+//    HtmlWidget html = HtmlWidget(kHtml,
+//        onTapUrl: (url) => showDialog(
+//          context: context,
+//          builder: (_) => AlertDialog(
+//            title: Text('onTapUrl'),
+//            content: Text(url),
+//          ),
+//        ));
+//
+//    return Directionality(textDirection: TextDirection.ltr, child: html);
+//    SizedBox(
+//        width: 250,
+//        height: 250, child: column);//Center(child: column);
+    return container;
+  }
+
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
